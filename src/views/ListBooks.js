@@ -11,9 +11,21 @@ function ListBooks(props) {
       </div>
       <div className='list-books-content'>
         <div>
-          <Bookshelf title='Currently reading' books={props.currentlyReading} />
-          <Bookshelf title='Want to read' books={props.wantToRead} />
-          <Bookshelf title='Read' books={props.read} />
+          <Bookshelf
+            title='Currently reading'
+            books={props.currentlyReading}
+            onShelfChange={props.onShelfChange}
+          />
+          <Bookshelf
+            title='Want to read'
+            books={props.wantToRead}
+            onShelfChange={props.onShelfChange}
+          />
+          <Bookshelf
+            title='Read'
+            books={props.read}
+            onShelfChange={props.onShelfChange}
+          />
         </div>
       </div>
       <div className='open-search'>
@@ -26,13 +38,15 @@ function ListBooks(props) {
 ListBooks.propTypes = {
   currentlyReading: PropTypes.array,
   wantToRead: PropTypes.array,
-  read: PropTypes.array
+  read: PropTypes.array,
+  onShelfChange: PropTypes.func
 }
 
 ListBooks.defautlProps = {
   currentlyReading: [],
   wantToRead: [],
-  read: []
+  read: [],
+  onShelfChange: ()=> {}
 }
 
 export default ListBooks

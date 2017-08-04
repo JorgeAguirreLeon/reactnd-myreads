@@ -8,7 +8,14 @@ function Bookshelf(props) {
   const books = props.books.map((book, i)=> {
     return (
       <li key={i}>
-        <Book title={book.title} authors={book.authors} cover={book.imageLinks.thumbnail} />
+        <Book
+          id={book.id}
+          title={book.title}
+          authors={book.authors}
+          cover={book.imageLinks.thumbnail}
+          shelf={book.shelf}
+          onShelfChange={props.onShelfChange}
+        />
       </li>
     )
   })
@@ -27,11 +34,13 @@ function Bookshelf(props) {
 
 Bookshelf.propTypes = {
   title: PropTypes.string.isRequired,
-  books: PropTypes.array
+  books: PropTypes.array,
+  onShelfChange: PropTypes.func
 }
 
 Bookshelf.defaultProps = {
-  books: []
+  books: [],
+  onShelfChange: ()=> {}
 }
 
 export default Bookshelf
