@@ -13,9 +13,9 @@ function ShelfSelect(props) {
   ))
 
   return (
-    <div className="book-shelf-changer">
+    <div className='book-shelf-changer'>
       <select value={props.shelf} onChange={props.onShelfChange}>
-        <option value="none" disabled={true}>Move to...</option>
+        <option value='' disabled={true}>Move to...</option>
         {options}
       </select>
     </div>

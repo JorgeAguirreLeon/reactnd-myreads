@@ -47,16 +47,36 @@ class BooksApp extends React.Component {
       })
   }
 
+  customizeBooksToShelf(search_books, own_books) {
+    /*
+     * Udacity's review #1 - Books retrieved with the search books API don't have the right shelf set.
+     * Check against my own book library and update this value
+     */
+     return search_books.map(book=> {
+       book.shelf = 'none'
+       for (let i in own_books) {
+         if (own_books[i].id === book.id) {
+           book.shelf = own_books[i].shelf
+           break
+         }
+       }
+       return book
+     })
+  }
+
   render() {
+
+    const {books, searchBooks, search} = this.state
+
     return (
       <div className="app">
         <Route
           exact path='/'
           render={()=> (
             <ListBooks
-              wantToRead={this.filterBooksByShelf(this.state.books, 'wantToRead')}
-              currentlyReading={this.filterBooksByShelf(this.state.books, 'currentlyReading')}
-              read={this.filterBooksByShelf(this.state.books, 'read')}
+              wantToRead={this.filterBooksByShelf(books, 'wantToRead')}
+              currentlyReading={this.filterBooksByShelf(books, 'currentlyReading')}
+              read={this.filterBooksByShelf(books, 'read')}
               onShelfChange={this.changeBookShelf.bind(this)}
             />
           )}
@@ -65,8 +85,8 @@ class BooksApp extends React.Component {
           exact path='/search'
           render={()=> (
             <SearchBooks
-              books={this.state.searchBooks}
-              search={this.state.search}
+              books={this.customizeBooksToShelf(searchBooks, books)}
+              search={search}
               onSearchChange={e=> this.setState({search: e.target.value})}
               onSearchSubmit={this.submitSearch.bind(this)}
               onShelfChange={this.changeBookShelf.bind(this)}
