@@ -13,7 +13,7 @@ function Book(props) {
         <img className="book-cover" src={props.cover} alt={props.title} />
         <ShelfSelect
           shelf={props.shelf}
-          onShelfChange={e=> props.onShelfChange(props.id, e.target.value)}
+          onShelfChange={e=> props.onShelfChange(props.rawBook, e.target.value)}
         />
       </div>
       <div className="book-title">{props.title}</div>
@@ -23,12 +23,12 @@ function Book(props) {
 }
 
 Book.propTypes = {
-  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   authors: PropTypes.array,
   cover: PropTypes.string.isRequired,
   shelf: PropTypes.string,
-  onShelfChange: PropTypes.func
+  onShelfChange: PropTypes.func,
+  rawBook: PropTypes.object
 }
 
 Book.defaultProps = {

@@ -9,7 +9,7 @@ function SearchBooks(props) {
     return (
       <li key={i}>
         <Book
-          id={book.id}
+          rawBook={book}
           title={book.title}
           authors={book.authors}
           cover={book.imageLinks.thumbnail}

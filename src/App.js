@@ -34,10 +34,16 @@ class BooksApp extends React.Component {
     }
   }
 
-  changeBookShelf(book_id, shelf) {
-    BooksAPI.update({id: book_id}, shelf)
+  changeBookShelf(updated_book, shelf) {
+    BooksAPI.update(updated_book, shelf)
       .then(shelves=> {
-        console.log(shelves)
+        if (shelf === 'none') {
+          this.setState(current_state=> ({books: current_state.books.filter(book=> book.id !== updated_book.id)}))
+        }
+        else {
+          updated_book.shelf = shelf
+          this.setState(current_state=> ({books: [updated_book, ...current_state.books.filter(book=> book.id !== updated_book.id)]}))
+        }
       })
   }
 
@@ -62,7 +68,7 @@ class BooksApp extends React.Component {
               books={this.state.searchBooks}
               search={this.state.search}
               onSearchChange={e=> this.setState({search: e.target.value})}
-              onSearchSubmit={this.submitSearch}
+              onSearchSubmit={this.submitSearch.bind(this)}
               onShelfChange={this.changeBookShelf.bind(this)}
             />
           )}
